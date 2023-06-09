@@ -1,11 +1,6 @@
 import { useSession } from "next-auth/react";
-import {
-  FormEvent,
-  useCallback,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import type { FormEvent } from "react";
 
 import { api } from "~/utils/api";
 import { Button } from "./Button";
@@ -85,7 +80,7 @@ function Form() {
       onSubmit={handleSubmit}
       className="flex flex-col gap-2 border-b px-4 py-2"
     >
-      <div className="flex gap-4">
+      <div className="flex gap-4 font-reg">
         <ProfileImage src={session.data.user.image} />
         <textarea
           ref={inputRef}

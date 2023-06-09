@@ -22,7 +22,7 @@ export function Button({
 
   return (
     <button
-      className={`rounded-full text-white transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50 ${sizeClasses} ${colorClasses} ${className}`}
+      className={` font-reg rounded-full text-white transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50 ${sizeClasses} ${colorClasses} ${className}`}
       {...props}
     ></button>
   );

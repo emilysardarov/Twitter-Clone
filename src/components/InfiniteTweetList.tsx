@@ -41,7 +41,7 @@ export function InfiniteTweetList({
   }
 
   return (
-    <ul>
+    <ul className="font-reg">
       <InfiniteScroll
         dataLength={tweets.length}
         next={fetchNewTweets}
@@ -56,9 +56,30 @@ export function InfiniteTweetList({
   );
 }
 
-const dateTimeFormatter = Intl.DateTimeFormat(undefined, {
-  dateStyle: "short",
-});
+// const dateTimeFormatter = Intl.DateTimeFormat(undefined, {
+//   dateStyle: "long",
+//   timeStyle: "short",
+// });
+
+function formatDate(date: Date): string {
+  const now = new Date();
+  const diffInMilliseconds = now.getTime() - date.getTime();
+
+  const seconds = Math.floor(diffInMilliseconds / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+
+  if (days > 0) {
+    return days + " days ago";
+  } else if (hours > 0) {
+    return hours + " hours ago";
+  } else if (minutes > 0) {
+    return minutes + " minutes ago";
+  } else {
+    return seconds + " seconds ago";
+  }
+}
 
 function TweetCard({
   id,
@@ -114,7 +135,7 @@ function TweetCard({
   }
 
   return (
-    <li className="flex gap-4 border-b px-4 py-4">
+    <li className="flex gap-4 border-b px-4 py-4 font-reg">
       <Link href={`/profiles/${user.id}`}>
         <ProfileImage src={user.image}></ProfileImage>
       </Link>
@@ -124,14 +145,16 @@ function TweetCard({
             href={`/profiles/${user.id}`}
             className="outline:none font-bold hover:underline focus-visible:underline"
           >
-            {user.name}
+            @{user.name}
           </Link>
-          <span className="text-gray-500">-</span>
+          •
           <span className="text-gray-500">
-            {dateTimeFormatter.format(createdAt)}
+            {formatDate(createdAt)}
+            {/* {dateTimeFormatter.format(createdAt)} */}
           </span>
         </div>
         <p className="whitespace-pre-wrap">{content}</p>
+
         <HeartButton
           onClick={handleToggleLike}
           isLoading={toggleLike.isLoading}
@@ -161,9 +184,9 @@ function HeartButton({
 
   if (session.status !== "authenticated") {
     return (
-      <div className="mb-1 mt-1 flex items-center gap-3 self-start text-gray-500">
+      <div className="mb-1 mt-1 flex items-center gap-3 self-start font-reg text-gray-500">
         <HeartIcon />
-        <span>{likeCount}</span>
+        <span className="font-reg">{likeCount}</span>
       </div>
     );
   }

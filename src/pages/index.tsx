@@ -18,7 +18,7 @@ const Home: NextPage = () => {
         <h1 className="mb-2 px-4 text-lg font-bold">Home</h1>
       </header>
       {session.status === "authenticated" && (
-        <div className="flex">
+        <div className="body flex">
           {TABS.map((tab) => {
             return (
               <button
